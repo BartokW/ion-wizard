@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { WizardComponent } from '../wizard/wizard.component';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  constructor(private modalController: ModalController) {}
 
-  constructor() {}
-
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: WizardComponent,
+      cssClass: 'my-custom-class',
+      swipeToClose: false,
+      backdropDismiss: false,
+      showBackdrop: true,
+    });
+    return await modal.present();
+  }
 }

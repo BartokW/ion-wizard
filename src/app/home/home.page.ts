@@ -8,6 +8,7 @@ import { WizardComponent } from '../wizard/wizard.component';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  message: string;
   constructor(private modalController: ModalController) {}
 
   async presentModal() {
@@ -17,7 +18,15 @@ export class HomePage {
       swipeToClose: false,
       backdropDismiss: false,
       showBackdrop: true,
+      componentProps: {
+        firstName: 'Bob',
+      },
     });
+
+    modal.onDidDismiss().then((returnedData) => {
+      this.message = returnedData.data.message;
+    });
+
     return await modal.present();
   }
 }

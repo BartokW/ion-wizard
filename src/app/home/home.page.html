@@ -15,6 +15,9 @@
 
   <div id="container">
     <strong>Ready to start?</strong>
-    <p (click)="presentModal()">Click here for modal wizard</p>
+    <p (click)="presentModal()" style="cursor: pointer;">
+      Click here for modal wizard
+    </p>
+    <p *ngIf="message">{{message}}</p>
   </div>
 </ion-content>

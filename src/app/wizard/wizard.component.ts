@@ -4,6 +4,7 @@ import {
   ViewChild,
   AfterViewInit,
   ElementRef,
+  Input,
 } from '@angular/core';
 import { ModalController, IonSlides } from '@ionic/angular';
 
@@ -13,9 +14,8 @@ import { ModalController, IonSlides } from '@ionic/angular';
   styleUrls: ['./wizard.component.scss'],
 })
 export class WizardComponent implements OnInit, AfterViewInit {
-  @ViewChild('slidesReference')
-  slidesRef: IonSlides;
-  slides: IonSlides;
+  @ViewChild(IonSlides) slides: IonSlides;
+  @Input() firstName: string;
   isFirst = true;
   isLast = true;
   // Optional parameters to pass to the swiper instance.
@@ -24,54 +24,38 @@ export class WizardComponent implements OnInit, AfterViewInit {
     initialSlide: 0,
     speed: 400,
     allowTouchMove: false,
-    // effect: 'flip',
   };
 
   constructor(private modalController: ModalController) {}
 
   async ngAfterViewInit(): Promise<void> {
-    //console.log(this.slidesRef);
-    if (this.slidesRef) {
+    if (this.slides) {
       console.log('wiz init');
-      this.slides = this.slidesRef;
-      //this.slides.lockSwipes(true);
       await this.slides.update();
       await this.updateFirstLast();
     }
   }
   async updateFirstLast() {
-    this.isFirst = await this.slidesRef.isBeginning();
-    this.isLast = await this.slidesRef.isEnd();
+    this.isFirst = await this.slides.isBeginning();
+    this.isLast = await this.slides.isEnd();
   }
 
-  ngOnInit() {
-    /* this.slideOpts = {
-      initialSlide: 0,
-      speed: 400,
-      // allowTouchMove: false,
-    };*/
-    // console.log(this.slides);
-  }
+  ngOnInit() {}
 
   dismiss() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
     this.modalController.dismiss({
-      // dismissed: true,
+      message: `Hello ${this.firstName}`,
     });
   }
   prev() {
-    //console.log(this.slidesRef);
-    //this.slides.lockSwipes(false);
     this.slides.slidePrev();
-    //this.slides.lockSwipes(true);
     this.updateFirstLast();
   }
 
   next() {
-    //this.slides.lockSwipes(false);
     this.slides.slideNext();
-    //this.slides.lockSwipes(true);
     this.updateFirstLast();
   }
 }

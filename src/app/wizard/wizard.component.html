@@ -1,4 +1,23 @@
-<p>
-  wizard works!
-</p>
-<p (click)="dismiss()">Dismiss</p>
+<ion-content>
+  <ion-slides #slidesReference pager="true" [options]="slideOpts">
+    <ion-slide>
+      <h1>Slide 1</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 2</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-button (click)="prev()" *ngIf="!isFirst">Previous</ion-button>
+  </ion-buttons>
+
+  <ion-buttons slot="end">
+    <ion-button (click)="next()" *ngIf="!isLast">Next</ion-button>
+    <ion-button (click)="dismiss()" *ngIf="isLast">Finish</ion-button>
+  </ion-buttons>
+</ion-toolbar>

@@ -1,4 +1,4 @@
-#Ionic Angular Wizard
+#Ionic Angular Wizard#
 
 This is an example of making a modal wizard in Ionic and Angular using the Ionic Slides component.
 
